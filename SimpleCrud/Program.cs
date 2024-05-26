@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleCrud.Data;
+using SimpleCrud.Repositories;
+using SimpleCrud.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<ApiContext>(options =>
 {
     options.UseMySql(connString,ServerVersion.AutoDetect(connString));
 });
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 var app = builder.Build();
 
