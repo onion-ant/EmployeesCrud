@@ -44,7 +44,7 @@ namespace SimpleCrud.DTOs.Mapping
             {
                 Name = employeeDTO.Name,
                 Age = employeeDTO.Age,
-                Photo = null
+                Photo = employeeDTO.Photo.FileName ?? null,
             };
         }
         public static IEnumerable<Employee>? ToArrayEmployee(this IEnumerable<POSTEmployeeDTO> employeeDTOEnumreable)

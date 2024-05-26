@@ -24,9 +24,12 @@ namespace SimpleCrud.Controllers
             return Ok(employeesDTO);
         }
         [HttpPost]
-        public async Task<IActionResult> Add(POSTEmployeeDTO employeeDTO)
+        public async Task<IActionResult> Add([FromForm] POSTEmployeeDTO employeeDTO)
         {
+            var filePath = Path.Combine("Storage", employeeDTO.Photo.FileName);
             await _employeeRepository.Add(employeeDTO.ToEmployee());
+            using Stream fileStream = new FileStream(filePath, FileMode.Create);
+            employeeDTO.Photo.CopyTo(fileStream);
             return Ok();
         }
     }
