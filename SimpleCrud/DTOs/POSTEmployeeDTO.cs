@@ -1,6 +1,6 @@
 ﻿namespace SimpleCrud.DTOs
 {
-    public class EmployeeDTO
+    public class POSTEmployeeDTO
     {
         public string Name { get; set; }
         public int Age { get; set; }

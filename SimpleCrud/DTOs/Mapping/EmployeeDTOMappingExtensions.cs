@@ -4,19 +4,21 @@ namespace SimpleCrud.DTOs.Mapping
 {
     public static class EmployeeDTOMappingExtensions
     {
-        public static EmployeeDTO? ToEmployeeDTO(this Employee employee)
+        public static GETEmployeeDTO? ToEmployeeDTO(this Employee employee)
         {
             if (employee == null)
             {
                 return null;
             }
-            return new EmployeeDTO()
+            return new GETEmployeeDTO()
             {
+                Id = employee.Id,
                 Age = employee.Age,
                 Name = employee.Name,
+                Photo = employee.Photo
             };
         }
-        public static IEnumerable<EmployeeDTO>? ToArrayEmployeeDTO(this IEnumerable<Employee> employeeEnumreable)
+        public static IEnumerable<GETEmployeeDTO>? ToArrayEmployeeDTO(this IEnumerable<Employee> employeeEnumreable)
         {
             if (employeeEnumreable is null || !employeeEnumreable.Any())
             {
@@ -24,15 +26,15 @@ namespace SimpleCrud.DTOs.Mapping
             }
             return employeeEnumreable.Select(employee => employee.ToEmployeeDTO()).ToArray();
         }
-        public static IEnumerable<EmployeeDTO>? ToListEmployeeDTO(this IEnumerable<Employee> employeeEnumreable)
+        public static IEnumerable<GETEmployeeDTO>? ToListEmployeeDTO(this IEnumerable<Employee> employeeEnumreable)
         {
             if (employeeEnumreable is null || !employeeEnumreable.Any())
             {
-                return new List<EmployeeDTO>();
+                return new List<GETEmployeeDTO>();
             }
             return employeeEnumreable.Select(employee => employee.ToEmployeeDTO()).ToList();
         }
-        public static Employee? ToEmployee(this EmployeeDTO employeeDTO)
+        public static Employee? ToEmployee(this POSTEmployeeDTO employeeDTO)
         {
             if(employeeDTO == null)
             {
@@ -45,7 +47,7 @@ namespace SimpleCrud.DTOs.Mapping
                 Photo = null
             };
         }
-        public static IEnumerable<Employee>? ToArrayEmployee(this IEnumerable<EmployeeDTO> employeeDTOEnumreable)
+        public static IEnumerable<Employee>? ToArrayEmployee(this IEnumerable<POSTEmployeeDTO> employeeDTOEnumreable)
         {
             if (employeeDTOEnumreable is null || !employeeDTOEnumreable.Any())
             {
@@ -53,7 +55,7 @@ namespace SimpleCrud.DTOs.Mapping
             }
             return employeeDTOEnumreable.Select(dto => dto.ToEmployee()).ToArray();
         }
-        public static IEnumerable<Employee>? ToListEmployee(this IEnumerable<EmployeeDTO> employeeDTOEnumreable)
+        public static IEnumerable<Employee>? ToListEmployee(this IEnumerable<POSTEmployeeDTO> employeeDTOEnumreable)
         {
             if (employeeDTOEnumreable is null || !employeeDTOEnumreable.Any())
             {
