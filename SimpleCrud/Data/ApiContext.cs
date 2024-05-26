@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SimpleCrud.Models;
 
 namespace SimpleCrud.Data
 {
-    public class ApiContext : DbContext
+    public class ApiContext : IdentityDbContext
     {
         public DbSet<Employee> Employees { get; set; }
 
