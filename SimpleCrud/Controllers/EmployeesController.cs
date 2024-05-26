@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleCrud.DTOs;
 using SimpleCrud.DTOs.Mapping;
 using SimpleCrud.Models;
+using SimpleCrud.Repositories.Exceptions;
 using SimpleCrud.Repositories.Interfaces;
 
 namespace SimpleCrud.Controllers
@@ -20,20 +21,34 @@ namespace SimpleCrud.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var employees = await _employeeRepository.GetAll();
-            var employeesDTO = employees.ToArrayEmployeeDTO();
-            return Ok(employeesDTO);
+            try
+            {
+                var employees = await _employeeRepository.GetAll();
+                var employeesDTO = employees.ToArrayEmployeeDTO();
+                return Ok(employeesDTO);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
         [HttpGet("{id}/download")]
         public async Task<IActionResult> DownloadPhoto(int id)
         {
-            var employee = await _employeeRepository.Get(id);
-            if(employee.Photo != null)
+            try
             {
-                var dataBytes = System.IO.File.ReadAllBytes(employee.ToEmployeeDTO().Photo);
-                return File(dataBytes, "image/png");
+                var employee = await _employeeRepository.Get(id);
+                if (employee.Photo != null)
+                {
+                    var dataBytes = System.IO.File.ReadAllBytes(employee.ToEmployeeDTO().Photo);
+                    return File(dataBytes, "image/png");
+                }
+                return NotFound($"This {nameof(Employee)} does not have a photo");
             }
-            return NotFound($"This {nameof(Employee)} does not have a photo");
+            catch(NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] POSTEmployeeDTO employeeDTO)
