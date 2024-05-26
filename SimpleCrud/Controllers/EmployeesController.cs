@@ -16,8 +16,15 @@ namespace SimpleCrud.Controllers
         {
             _employeeRepository = employeeRepository;
         }
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var employees = await _employeeRepository.GetAll();
+            var employeesDTO = employees.ToArrayEmployeeDTO();
+            return Ok(employeesDTO);
+        }
         [HttpPost]
-        public async Task<IActionResult> Add(EmployeeDTO employeeDTO)
+        public async Task<IActionResult> Add(POSTEmployeeDTO employeeDTO)
         {
             await _employeeRepository.Add(employeeDTO.ToEmployee());
             return Ok();
