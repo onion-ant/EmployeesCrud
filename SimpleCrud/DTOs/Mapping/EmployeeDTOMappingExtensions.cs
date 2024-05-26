@@ -15,7 +15,7 @@ namespace SimpleCrud.DTOs.Mapping
                 Id = employee.Id,
                 Age = employee.Age,
                 Name = employee.Name,
-                Photo = employee.Photo
+                Photo = employee.Photo ?? null
             };
         }
         public static IEnumerable<GETEmployeeDTO>? ToArrayEmployeeDTO(this IEnumerable<Employee> employeeEnumreable)
@@ -36,7 +36,7 @@ namespace SimpleCrud.DTOs.Mapping
         }
         public static Employee? ToEmployee(this POSTEmployeeDTO employeeDTO)
         {
-            if(employeeDTO == null)
+            if (employeeDTO == null)
             {
                 return null;
             }
@@ -44,7 +44,7 @@ namespace SimpleCrud.DTOs.Mapping
             {
                 Name = employeeDTO.Name,
                 Age = employeeDTO.Age,
-                Photo = employeeDTO.Photo.FileName ?? null,
+                Photo = employeeDTO.Photo != null ? Path.Combine("Storage", employeeDTO.Photo.FileName) : null,
             };
         }
         public static IEnumerable<Employee>? ToArrayEmployee(this IEnumerable<POSTEmployeeDTO> employeeDTOEnumreable)

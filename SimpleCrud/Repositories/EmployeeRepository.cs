@@ -18,6 +18,11 @@ namespace SimpleCrud.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<Employee> Get(int id)
+        {
+            return await _context.Employees.FindAsync(id);
+        }
+
         public async Task<IEnumerable<Employee>> GetAll()
         {
             return await _context.Employees.ToArrayAsync();
