@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SimpleCrud.DTOs;
 using SimpleCrud.DTOs.Mapping;
@@ -19,6 +20,7 @@ namespace SimpleCrud.Controllers
             _employeeRepository = employeeRepository;
         }
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Get()
         {
             try
