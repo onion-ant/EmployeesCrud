@@ -6,6 +6,7 @@ using SimpleCrud.Data;
 using SimpleCrud.Models;
 using SimpleCrud.Repositories;
 using SimpleCrud.Repositories.Interfaces;
+using SimpleCrud.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +32,7 @@ builder.Services.AddDbContext<ApiContext>(options =>
     options.UseMySql(connString,ServerVersion.AutoDetect(connString));
 });
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<ITokenService,TokenService>();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>
 {
